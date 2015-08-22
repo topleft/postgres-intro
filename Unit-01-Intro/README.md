@@ -24,49 +24,32 @@ A student should be able to:
 * delete one/many rows
 * drop a table/database
 
-## XP practices learned
-
-## Tech skill learned
-
-* PostgreSql
-* psql
-* SQL
-
 ## Installing PostgreSql
 
 Make sure that [Homebrew](http://brew.sh/) has the latest formulas and then install PostgreSql.
 When you are done, make sure PostgreSql was installed and set it to auto start whenever you computer starts.
 
 ```
-$ brew update
-Updated Homebrew from ddfda9d0 to 1199c138.
-$ brew install postgres
-==> Installing postgresql dependency: ossp-uuid
-** Lots of other output **
-==> Installing postgresql
-** Lots of other output **
-/usr/local/Cellar/postgresql/9.3.2: 2924 files, 39M
-$ psql \--version
-psql (PostgreSQL) 9.3.2
-$ ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
-$ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+brew update
+brew install postgres
 ```
 
-## Creating users in PostgreSql
-
-Just like you have users on your computer, Postgres allows us to create users that have access to the databases within PostgreSql.
-This series of steps will create a user named gschool_user, ask for a password and give it the proper permissions in PostgreSql. You should use gschool_user
-as the user name and password as the password. You will use this username/password combination
-when we start accessing the database from our Ruby applications.
+Follow instructions to have postgres start at login.  They probably look something like this:
 
 ```
-$ createuser \--pwprompt \--interactive gschool_user
-Enter password for new role:
-Enter it again:
-Shall the new role be a superuser? (y/n) n
-Shall the new role be allowed to create databases? (y/n) y
-Shall the new role be allowed to create more new roles? (y/n) y
+ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
+launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 ```
+
+(if you ever need to go back to that command, type `brew info postgres`)
+
+Check that `psql` has been installed correctly by typing:
+
+```
+psql --version
+```
+
+You should see something like: `psql (PostgreSQL) 9.3.2`
 
 ## Background on relational databases
 
@@ -83,28 +66,6 @@ Shall the new role be allowed to create more new roles? (y/n) y
     * [Filtering with WHERE](http://www.postgresql.org/docs/9.3/static/queries-table-expressions.html#QUERIES-WHERE)
 * [Updating data](http://www.postgresql.org/docs/9.3/static/dml-update.html)
 * [Deleting data](http://www.postgresql.org/docs/9.3/static/dml-delete.html)
-
-## [Demo](https://github.com/gSchool/intro_to_sql_demo)
-
-Implement database to hold the items from the tested Sinatra homework.
-
-1. Create a new database called 'tested_sinatra'.
-    * from within PSQL
-    * using `createdb` command
-    * using a .sql file -`psql -d postgres -f create_tested_sinatra_database.sql`
-1. Create items table
-    * What columns do I need?
-    * How do I autoincrement id?
-1. From psql, insert 5 rows of data
-1. From psql, display all rows in the items table
-1. From psql, display only name column for all rows of data
-1. From psql, display one row using where clause
-1. From psql, update one row to have a different name
-1. From psql, delete one row.
-1. From psql, drop the items table.
-1. From psql, drop the tested_sinatra database.
-
-Now your turn...a volunteer please.
 
 ## Homework
 
