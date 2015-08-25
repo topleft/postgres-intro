@@ -1,79 +1,20 @@
-
---
--- File paths need to be edited. Search for $$PATH$$ and
--- replace it with the path to the directory containing
--- the extracted data files.
---
---
--- PostgreSQL database dump
---
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
-
 SET search_path = public, pg_catalog;
 
-ALTER TABLE ONLY public.orders DROP CONSTRAINT orders_pkey;
-ALTER TABLE ONLY public.orderitems DROP CONSTRAINT orderitems_pkey;
-ALTER TABLE ONLY public.items DROP CONSTRAINT items_pkey;
-ALTER TABLE ONLY public.customers DROP CONSTRAINT customers_pkey;
-ALTER TABLE public.orders ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.orderitems ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.items ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.customers ALTER COLUMN id DROP DEFAULT;
-DROP SEQUENCE public.orders_id_seq;
-DROP TABLE public.orders;
-DROP SEQUENCE public.orderitems_id_seq;
-DROP TABLE public.orderitems;
-DROP SEQUENCE public.items_id_seq;
-DROP TABLE public.items;
-DROP SEQUENCE public.customers_id_seq;
-DROP TABLE public.customers;
-DROP EXTENSION plpgsql;
-DROP SCHEMA public;
---
--- Name: public; Type: SCHEMA; Schema: -; Owner: gschool
---
-
-CREATE SCHEMA public;
-
-
-ALTER SCHEMA public OWNER TO gschool;
-
---
--- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: gschool
---
-
-COMMENT ON SCHEMA public IS 'standard public schema';
-
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
---
+CREATE SCHEMA IF NOT EXISTS public;
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
 
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
 
 SET default_with_oids = false;
-
---
--- Name: customers; Type: TABLE; Schema: public; Owner: gschool; Tablespace:
---
 
 CREATE TABLE customers (
     id integer NOT NULL,
@@ -85,13 +26,6 @@ CREATE TABLE customers (
     zipcode text
 );
 
-
-ALTER TABLE public.customers OWNER TO gschool;
-
---
--- Name: customers_id_seq; Type: SEQUENCE; Schema: public; Owner: gschool
---
-
 CREATE SEQUENCE customers_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -99,32 +33,13 @@ CREATE SEQUENCE customers_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE public.customers_id_seq OWNER TO gschool;
-
---
--- Name: customers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gschool
---
-
 ALTER SEQUENCE customers_id_seq OWNED BY customers.id;
-
-
---
--- Name: items; Type: TABLE; Schema: public; Owner: gschool; Tablespace:
---
 
 CREATE TABLE items (
     id integer NOT NULL,
     name text,
     description text
 );
-
-
-ALTER TABLE public.items OWNER TO gschool;
-
---
--- Name: items_id_seq; Type: SEQUENCE; Schema: public; Owner: gschool
---
 
 CREATE SEQUENCE items_id_seq
     START WITH 1
@@ -133,32 +48,13 @@ CREATE SEQUENCE items_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE public.items_id_seq OWNER TO gschool;
-
---
--- Name: items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gschool
---
-
 ALTER SEQUENCE items_id_seq OWNED BY items.id;
-
-
---
--- Name: orderitems; Type: TABLE; Schema: public; Owner: gschool; Tablespace:
---
 
 CREATE TABLE orderitems (
     id integer NOT NULL,
     order_id integer,
     item_id integer
 );
-
-
-ALTER TABLE public.orderitems OWNER TO gschool;
-
---
--- Name: orderitems_id_seq; Type: SEQUENCE; Schema: public; Owner: gschool
---
 
 CREATE SEQUENCE orderitems_id_seq
     START WITH 1
@@ -167,32 +63,13 @@ CREATE SEQUENCE orderitems_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE public.orderitems_id_seq OWNER TO gschool;
-
---
--- Name: orderitems_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gschool
---
-
 ALTER SEQUENCE orderitems_id_seq OWNED BY orderitems.id;
-
-
---
--- Name: orders; Type: TABLE; Schema: public; Owner: gschool; Tablespace:
---
 
 CREATE TABLE orders (
     id integer NOT NULL,
     customer_id integer,
     amount numeric
 );
-
-
-ALTER TABLE public.orders OWNER TO gschool;
-
---
--- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: gschool
---
 
 CREATE SEQUENCE orders_id_seq
     START WITH 1
@@ -202,136 +79,31 @@ CREATE SEQUENCE orders_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.orders_id_seq OWNER TO gschool;
-
---
--- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gschool
---
 
 ALTER SEQUENCE orders_id_seq OWNED BY orders.id;
 
 
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: gschool
---
-
 ALTER TABLE ONLY customers ALTER COLUMN id SET DEFAULT nextval('customers_id_seq'::regclass);
 
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: gschool
---
 
 ALTER TABLE ONLY items ALTER COLUMN id SET DEFAULT nextval('items_id_seq'::regclass);
 
 
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: gschool
---
-
 ALTER TABLE ONLY orderitems ALTER COLUMN id SET DEFAULT nextval('orderitems_id_seq'::regclass);
 
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: gschool
---
-
 ALTER TABLE ONLY orders ALTER COLUMN id SET DEFAULT nextval('orders_id_seq'::regclass);
-
-
---
--- Data for Name: customers; Type: TABLE DATA; Schema: public; Owner: gschool
---
-
-COPY customers (id, name, email, address, city, state, zipcode) FROM stdin;
-\.
-COPY customers (id, name, email, address, city, state, zipcode) FROM '$$PATH$$/2232.dat';
-
---
--- Name: customers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gschool
---
-
-
---
--- Data for Name: items; Type: TABLE DATA; Schema: public; Owner: gschool
---
-
-COPY items (id, name, description) FROM stdin;
-\.
-COPY items (id, name, description) FROM '$$PATH$$/2236.dat';
-
---
--- Name: items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gschool
---
-
-
---
--- Data for Name: orderitems; Type: TABLE DATA; Schema: public; Owner: gschool
---
-
-COPY orderitems (id, order_id, item_id) FROM stdin;
-\.
-COPY orderitems (id, order_id, item_id) FROM '$$PATH$$/2234.dat';
-
---
--- Name: orderitems_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gschool
---
-
-
---
--- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: gschool
---
-
-COPY orders (id, customer_id, amount) FROM stdin;
-\.
-COPY orders (id, customer_id, amount) FROM '$$PATH$$/2230.dat';
-
---
--- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gschool
---
-
-
---
--- Name: customers_pkey; Type: CONSTRAINT; Schema: public; Owner: gschool; Tablespace:
---
 
 ALTER TABLE ONLY customers
     ADD CONSTRAINT customers_pkey PRIMARY KEY (id);
 
-
---
--- Name: items_pkey; Type: CONSTRAINT; Schema: public; Owner: gschool; Tablespace:
---
-
 ALTER TABLE ONLY items
     ADD CONSTRAINT items_pkey PRIMARY KEY (id);
-
-
---
--- Name: orderitems_pkey; Type: CONSTRAINT; Schema: public; Owner: gschool; Tablespace:
---
 
 ALTER TABLE ONLY orderitems
     ADD CONSTRAINT orderitems_pkey PRIMARY KEY (id);
 
-
---
--- Name: orders_pkey; Type: CONSTRAINT; Schema: public; Owner: gschool; Tablespace:
---
-
 ALTER TABLE ONLY orders
     ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
-
-
---
--- Name: public; Type: ACL; Schema: -; Owner: gschool
---
-
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM gschool;
-GRANT ALL ON SCHEMA public TO gschool;
-GRANT ALL ON SCHEMA public TO PUBLIC;
-
 
 INSERT INTO customers (name, email, address, city, state, zipcode) VALUES ('Donato Rempel','ladarius@waelchi.org','890 Ullrich Plains', 'Janachester', 'Virginia', '77714');
 INSERT INTO customers (name, email, address, city, state, zipcode) VALUES ('Tyrell Von DDS','cleo_frami@bartondenesik.name','63337 Abdullah Camp', 'Verdieborough', 'Colorado', '69882-7027');
@@ -572,7 +344,3 @@ INSERT INTO orders (customer_id, amount) VALUES (8, 31.07);
 INSERT INTO orders (customer_id, amount) VALUES (7, 80.36);
 INSERT INTO orders (customer_id, amount) VALUES (3, 50.1);
 INSERT INTO orders (customer_id, amount) VALUES (5, 59.5);
-
---
--- PostgreSQL database dump complete
---

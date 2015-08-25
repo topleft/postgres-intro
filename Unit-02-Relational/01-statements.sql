@@ -1,4 +1,3 @@
-ear any existing data:
 DROP TABLE IF EXISTS employments_resumes;
 DROP TABLE IF EXISTS employments;
 DROP TABLE IF EXISTS resumes;

@@ -16,10 +16,10 @@ A student should be able to:
     * Column
 * create a new database
 * create a new table
-* insert data into a table
+* insert data into a table with `insert`
 * display all rows from a table
-* display a certain subset of columns for a row
-* display specific rows from a table using a where clause
+* display a certain subset of columns for a row using the `select` clause
+* display specific rows from a table using a `where` clause
 * update a set of rows
 * delete one/many rows
 * drop a table/database
